@@ -19,6 +19,7 @@ set(LIB_SOURCES
     ${SOURCE}/psd_header.c
     ${SOURCE}/psd_cursor.c
     ${SOURCE}/psd_section.c
+    ${SOURCE}/psd_conversion.c
     ${SOURCE}/psd_read.c)
 
 set(LIB_HEADERS
@@ -27,6 +28,7 @@ set(LIB_HEADERS
     ${INCLUDE}/psd_types.h
     ${INCLUDE}/psd_header.h
     ${INCLUDE}/psd_section.h
+    ${INCLUDE}/psd_conversion.h
     ${INCLUDE}/psd_read.h)
 
 set(PUBLIC_HEADER
