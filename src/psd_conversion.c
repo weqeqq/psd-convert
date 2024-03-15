@@ -12,8 +12,12 @@ psd_byte_t **bytep_to_bytepp(const psd_header_t *const header,
 
         bufferpp = malloc(sizeof(psd_byte_t *) * height);
 
-        for (psd_size_t i = 0; i < height; ++i)
+        for (psd_size_t i = 0, n = 0; i < height; ++i) {
                 bufferpp[i] = malloc(width * channels);
+
+                for (psd_size_t j = 0; j < width * channels; ++j, ++n)
+                        bufferpp[i][j] = bufferp[n];
+        }
 
         return bufferpp;
 }
@@ -59,6 +63,8 @@ psd_byte_t *bytepp_to_bytep_with_free(const psd_header_t *const header,
         height = header->height;
         for (psd_size_t i = 0; i < height; ++i)
                 free(bufferpp[i]);
+
+        free(bufferpp);
 
         return bufferp;
 }
