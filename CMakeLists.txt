@@ -12,6 +12,7 @@ set(INCLUDE_CLI ${INCLUDE}/cli)
 
 set(SOURCE src/)
 set(SOURCE_CLI ${SOURCE}/cli)
+set(SOURCE_TEST test/)
 
 include_directories(${INCLUDE})
 
@@ -28,6 +29,7 @@ set(LIB_HEADERS
     ${INCLUDE}/psd_types.h
     ${INCLUDE}/psd_header.h
     ${INCLUDE}/psd_section.h
+    ${INCLUDE}/psd_buffer.h
     ${INCLUDE}/psd_conversion.h
     ${INCLUDE}/psd_read.h)
 
@@ -109,3 +111,44 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 target_link_libraries(${PROJECT_NAME} PRIVATE
                       ${STATIC_LIB}
                       ${LIBPNG_LIB})
+
+
+enable_testing()
+
+set(GTEST gtest)
+set(GTEST_INSTALL_DIR ${EXTERNAL_INSTALL_DIR}/${GTEST})
+set(GTEST_LIB ${GTEST_INSTALL_DIR}/lib/libgtest.a)
+set(GTEST_INCLUDE ${GTEST_INSTALL_DIR}/include)
+
+if(NOT EXISTS ${GTEST_INSTALL_DIR})
+
+    ExternalProject_Add(
+        ${GTEST}
+        PREFIX              ${GTEST}
+
+        GIT_REPOSITORY      https://github.com/google/googletest.git
+        GIT_TAG             v1.14.0
+
+        CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=${GTEST_INSTALL_DIR}
+        BUILD_COMMAND       ${CMAKE_COMMAND} --build <BINARY_DIR> --config Release)
+endif()
+
+set(TEST_SOURCES
+    ${SOURCE_TEST}/conversion.cpp
+    ${SOURCE_TEST}/main.cpp)
+
+add_executable(${PROJECT_NAME}-test)
+
+target_sources(${PROJECT_NAME}-test PRIVATE
+               ${TEST_SOURCES})
+
+target_include_directories(${PROJECT_NAME}-test PRIVATE
+                           ${INCLUDE}
+                           ${GTEST_INCLUDE})
+
+target_link_libraries(${PROJECT_NAME}-test PRIVATE
+                      ${STATIC_LIB}
+                      ${GTEST_LIB})
+
+include(GoogleTest)
+gtest_discover_tests(${PROJECT_NAME}-test)
