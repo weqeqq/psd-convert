@@ -245,7 +245,7 @@ psd_result_t read_color_mode(psd_header_t *const header, psd_cursor_t *cursor)
         return_psd_success(NULL);
 }
 
-void pheader_print(const psd_header_t header)
+void psd_header_print(const psd_header_t header)
 {
         printf("version: ");
         print_version(header.version);
