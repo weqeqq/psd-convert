@@ -8,7 +8,7 @@
 
 INIT_PSD_RESULT;
 
-psd_result_t read_signature(psd_cursor_t *const cursor)
+psd_result_t psd_read_signature(psd_cursor_t *const cursor)
 {
         psd_byte_t *buffer;
         u_int32_t sig1, sig2;
@@ -51,8 +51,8 @@ void print_version(const psd_version_t version)
         }
 }
 
-psd_result_t read_version(psd_header_t *const header,
-                          psd_cursor_t *const cursor)
+psd_result_t psd_read_version(psd_header_t *const header,
+                              psd_cursor_t *const cursor)
 {
         psd_byte_t *buffer;
         psd_version_t version;
@@ -82,8 +82,8 @@ psd_result_t skip_reserved(psd_cursor_t *const cursor)
         return_psd_success(NULL);
 }
 
-psd_result_t read_channels(psd_header_t *const header,
-                           psd_cursor_t *const cursor)
+psd_result_t psd_read_channels(psd_header_t *const header,
+                               psd_cursor_t *const cursor)
 {
 
         psd_byte_t *buffer;
@@ -107,7 +107,8 @@ psd_result_t read_channels(psd_header_t *const header,
         return_psd_success(NULL);
 }
 
-psd_result_t read_height(psd_header_t *const header, psd_cursor_t *const cursor)
+psd_result_t psd_read_height(psd_header_t *const header,
+                             psd_cursor_t *const cursor)
 {
         psd_byte_t *buffer;
         psd_height_t height;
@@ -132,8 +133,8 @@ psd_result_t read_height(psd_header_t *const header, psd_cursor_t *const cursor)
         return_psd_success(NULL);
 }
 
-psd_result_t read_width(psd_header_t *const psd_header,
-                        psd_cursor_t *const cursor)
+psd_result_t psd_read_width(psd_header_t *const psd_header,
+                            psd_cursor_t *const cursor)
 {
         psd_byte_t *buffer;
         psd_width_t width;
@@ -158,7 +159,8 @@ psd_result_t read_width(psd_header_t *const psd_header,
         return_psd_success(NULL);
 }
 
-psd_result_t read_depth(psd_header_t *const header, psd_cursor_t *const cursor)
+psd_result_t psd_read_depth(psd_header_t *const header,
+                            psd_cursor_t *const cursor)
 {
         psd_byte_t *buffer;
         psd_depth_t depth;
@@ -221,7 +223,8 @@ void print_color_mode(const psd_color_mode_t color_mode)
         }
 }
 
-psd_result_t read_color_mode(psd_header_t *const header, psd_cursor_t *cursor)
+psd_result_t psd_read_color_mode(psd_header_t *const header,
+                                 psd_cursor_t *cursor)
 {
         psd_byte_t *buffer;
         psd_color_mode_t color_mode;
@@ -277,21 +280,21 @@ psd_result_t psd_header_read(psd_cursor_t *const cursor)
         psd_header_t *header;
         header = malloc(sizeof(psd_header_t));
 
-        psd_up_error(read_signature(cursor));
+        psd_up_error(psd_read_signature(cursor));
 
-        psd_up_error(read_version(header, cursor));
+        psd_up_error(psd_read_version(header, cursor));
 
         psd_up_error(skip_reserved(cursor));
 
-        psd_up_error(read_channels(header, cursor));
+        psd_up_error(psd_read_channels(header, cursor));
 
-        psd_up_error(read_height(header, cursor));
+        psd_up_error(psd_read_height(header, cursor));
 
-        psd_up_error(read_width(header, cursor));
+        psd_up_error(psd_read_width(header, cursor));
 
-        psd_up_error(read_depth(header, cursor));
+        psd_up_error(psd_read_depth(header, cursor));
 
-        psd_up_error(read_color_mode(header, cursor));
+        psd_up_error(psd_read_color_mode(header, cursor));
 
         return_psd_success(header);
 }

@@ -18,8 +18,6 @@ typedef enum psd_version {
         UNDEFINED_VERSION,
 } psd_version_t;
 
-void print_version(const psd_version_t psd_version);
-
 typedef enum psd_color_mode {
         BITMAP,
         GRAYSCALE,
@@ -32,8 +30,6 @@ typedef enum psd_color_mode {
         UNDEFINED_COLOR_MODE,
 } psd_color_mode_t;
 
-void print_color_mode(const psd_color_mode_t psd_color_mode);
-
 typedef struct psd_header {
         psd_version_t version;
         psd_channels_t channels;
@@ -42,6 +38,32 @@ typedef struct psd_header {
         psd_depth_t depth;
         psd_color_mode_t color_mode;
 } psd_header_t;
+
+psd_result_t psd_read_signature(psd_cursor_t *const psd_cursor_ptr);
+
+void print_version(const psd_version_t psd_version);
+
+psd_result_t psd_read_version(psd_header_t *const psd_header_ptr,
+                              psd_cursor_t *const psd_cursor_ptr);
+
+psd_result_t psd_skip_reserved(psd_cursor_t *const psd_cursor_ptr);
+
+psd_result_t psd_read_channels(psd_header_t *const psd_header_ptr,
+                               psd_cursor_t *const psd_cursor_ptr);
+
+psd_result_t psd_read_height(psd_header_t *const psd_header_ptr,
+                             psd_cursor_t *const psd_cursor_ptr);
+
+psd_result_t psd_read_width(psd_header_t *const psd_header_ptr,
+                            psd_cursor_t *const psd_cursor_ptr);
+
+psd_result_t psd_read_depth(psd_header_t *const psd_header_ptr,
+                            psd_cursor_t *const psd_cursor_ptr);
+
+void print_color_mode(const psd_color_mode_t psd_color_mode);
+
+psd_result_t psd_read_color_mode(psd_header_t *const psd_header_ptr,
+                                 psd_cursor_t *const psd_cursor_ptr);
 
 void psd_header_print(const psd_header_t);
 
