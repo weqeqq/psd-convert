@@ -12,6 +12,9 @@ psd_result_t psd_cursor_from_buffer(psd_byte_t *const buffer,
         psd_cursor_t *cursor;
         cursor = malloc(sizeof(psd_cursor_t));
 
+        if (cursor == NULL)
+                return_psd_error("Failed to allocate memory.");
+
         cursor->size = buffer_size;
         cursor->data = buffer;
         cursor->current = 0;
