@@ -1,3 +1,5 @@
+#define PSD_RESULT_MACRO__
+
 #include <psdcli_pathut.h>
 #include <psdcli_write.h>
 
@@ -10,7 +12,7 @@
 #include "psd_header.h"
 #include "psd_types.h"
 
-INIT_PSD_RESULT;
+static psd_result_t PSD_RESULT__;
 
 int convert_color_structure(const psd_color_mode_t from)
 {

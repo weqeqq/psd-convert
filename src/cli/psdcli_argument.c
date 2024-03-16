@@ -1,3 +1,6 @@
+#define PSD_RESULT_MACRO__
+
+#include "psd_result.h"
 #include <psdcli_argument.h>
 #include <psdcli_pathut.h>
 
@@ -7,7 +10,7 @@
 #include <string.h>
 #include <unistd.h>
 
-INIT_PSD_RESULT;
+static psd_result_t PSD_RESULT__;
 static int OPT;
 
 #define INPUT 'i'

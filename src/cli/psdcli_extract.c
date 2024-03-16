@@ -1,6 +1,8 @@
+#define PSD_RESULT_MACRO__
+
 #include <psdcli_extract.h>
 
-INIT_PSD_RESULT;
+static psd_result_t PSD_RESULT__;
 
 psd_result_t extract_image_p(const psd_header_t *const header,
                              psd_cursor_t *const cursor)

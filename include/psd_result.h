@@ -2,7 +2,6 @@
 #define PSD_RESULT_H
 
 #include <stdbool.h>
-#include <stdlib.h>
 #include <sys/types.h>
 
 typedef struct psd_result {
@@ -11,7 +10,10 @@ typedef struct psd_result {
         int is_error;
 } psd_result_t;
 
-#define INIT_PSD_RESULT static psd_result_t psd_result__;
+#ifdef PSD_RESULT_MACRO__
+#define PSD_RESULT__ psd_result__;
+
+#include <stdlib.h>
 
 #define return_psd_success(ptr)                                                \
         do {                                                                   \
@@ -38,8 +40,6 @@ typedef struct psd_result {
                         return psd_result__;                                   \
         } while (0)
 
-#endif
-
 #define psd_up_error_with_handle(func, handle)                                 \
         do {                                                                   \
                 psd_result__ = (func);                                         \
@@ -59,3 +59,7 @@ typedef struct psd_result {
                         exit(1);                                               \
                 }                                                              \
         } while (0)
+
+#endif
+
+#endif

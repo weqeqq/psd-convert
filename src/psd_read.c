@@ -1,3 +1,5 @@
+#define PSD_RESULT_MACRO__
+
 #include <psd_cursor.h>
 #include <psd_read.h>
 #include <psd_result.h>
@@ -6,7 +8,7 @@
 #include <stdlib.h>
 #include <sys/types.h>
 
-INIT_PSD_RESULT;
+static psd_result_t PSD_RESULT__;
 
 psd_result_t read_channel_size(size_t *const out_buffer,
                                const psd_height_t height,

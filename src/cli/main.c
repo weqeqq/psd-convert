@@ -1,3 +1,5 @@
+#define PSD_RESULT_MACRO__
+
 #include <psdcli_argument.h>
 #include <psdcli_extract.h>
 #include <psdcli_pathut.h>
@@ -10,7 +12,7 @@
 #include <sys/stat.h>
 #include <time.h>
 
-INIT_PSD_RESULT;
+static psd_result_t PSD_RESULT__;
 
 psd_result_t convert_file(const char *const input_psd_path,
                           const char *const output_image_path);

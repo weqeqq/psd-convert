@@ -1,10 +1,12 @@
+#define PSD_RESULT_MACRO__
+
 #include <psd_cursor.h>
 #include <psd_result.h>
 #include <psd_types.h>
 
 #include <stdlib.h>
 
-INIT_PSD_RESULT;
+static psd_result_t PSD_RESULT__;
 
 psd_result_t psd_cursor_from_buffer(psd_byte_t *const buffer,
                                     const size_t buffer_size)
