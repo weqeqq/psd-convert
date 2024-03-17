@@ -1,16 +1,45 @@
-#ifndef PHEADER_H
-#define PHEADER_H
+#ifndef PSD_HEADER_H
+#define PSD_HEADER_H
 
 #include <psd_cursor.h>
 #include <psd_result.h>
 #include <psd_types.h>
 #include <sys/types.h>
 
-#define MAX_PSD_PSB_CHANNELS 56
-#define MAX_PSD_WIDTH 30000
-#define MAX_PSB_WIDTH 300000
-#define MAX_PSD_HEIGHT 30000
-#define MAX_PSB_HEIGHT 300000
+#define PSD_SIGNATURE_SIZE 4
+#define PSD_VERSION_SIZE 2
+#define PSD_RESERVED_SIZE 6
+#define PSD_CHANNELS_SIZE 2
+#define PSD_HEIGHT_SIZE 4
+#define PSD_WIDTH_SIZE 4
+#define PSD_DEPTH_SIZE 2
+#define PSD_COLOR_MODE_SIZE 2
+
+#define PSD_MAX_CHANNELS 56
+#define PSD_MAX_WIDTH_PSD 30000
+#define PSD_MAX_WIDTH_PSB 300000
+#define PSD_MAX_HEIGHT_PSD 30000
+#define PSD_MAX_HEIGHT_PSB 300000
+
+#define PSD_VERSION_COND(value) ((value) < UNDEFINED_VERSION)
+#define PSD_CHANNELS_COND(value) ((value) < PSD_MAX_CHANNELS)
+
+#define PSD_HEIGHT_PSD_COND(value)                                             \
+        ((value) < PSD_MAX_HEIGHT_PSD && (value) != 0)
+
+#define PSD_HEIGHT_PSB_COND(value)                                             \
+        ((value) < PSD_MAX_HEIGHT_PSB && (value) != 0)
+
+#define PSD_WIDTH_PSD_COND(value) ((value) < PSD_MAX_WIDTH_PSD && (value) != 0)
+#define PSD_WIDTH_PSB_COND(value) ((value) < PSD_MAX_WIDTH_PSB && (value) != 0)
+
+#define PSD_DEPTH_COND(value)                                                  \
+        ((value) == 1 || (value) == 8 || (value) == 16 || (value) == 32)
+
+#define PSD_COLOR_MODE_COND(value)                                             \
+        ((value) == BITMAP || (value) == GRAYSCALE || (value) == INDEXED ||    \
+         (value) == RGB || (value) == CMYK || (value) == MULTICHANNEL ||       \
+         (value) == DUOTONE || (value) == LAB)
 
 typedef enum psd_version {
         PSD,
