@@ -1,4 +1,5 @@
 #include <psd_conversion.h>
+#include <stdlib.h>
 
 psd_byte_t **bytep_to_bytepp(const psd_header_t *const header,
                              psd_byte_t *const bufferp)
