@@ -99,9 +99,11 @@ psd_result_t psd_read_image_data(const psd_header_t *const header,
                                  psd_cursor_t *const cursor)
 {
         psd_compression_t *compression;
-        const psd_channels_t channels = header->channels;
-        const psd_width_t width = header->width;
-        const psd_height_t height = header->height;
+        psd_size_t channels, width, height;
+
+        channels = header->channels;
+        width = header->width;
+        height = header->height;
 
         compression = malloc(sizeof(psd_compression_t));
         psd_up_error(read_compression_type(compression, cursor));

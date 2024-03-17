@@ -15,9 +15,9 @@ typedef enum psd_compression {
 } psd_compression_t;
 
 psd_result_t read_and_decompress_data(              //
-    const psd_channels_t channels,                  //
-    const psd_width_t width,                        //
-    const psd_height_t height,                      //
+    const psd_size_t channels,                      //
+    const psd_size_t width,                         //
+    const psd_size_t height,                        //
     const psd_compression_t *const compression_ptr, //
     psd_cursor_t *const psd_cursor);                //
 

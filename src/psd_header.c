@@ -86,7 +86,7 @@ psd_result_t psd_read_channels(psd_header_t *const header,
 {
 
         psd_byte_t *buffer;
-        psd_channels_t channels;
+        psd_size_t channels;
 
         channels = 0;
 
@@ -109,7 +109,7 @@ psd_result_t psd_read_height(psd_header_t *const header,
                              psd_cursor_t *const cursor)
 {
         psd_byte_t *buffer;
-        psd_height_t height;
+        psd_size_t height;
 
         height = 0;
 
@@ -134,7 +134,7 @@ psd_result_t psd_read_width(psd_header_t *const psd_header,
                             psd_cursor_t *const cursor)
 {
         psd_byte_t *buffer;
-        psd_width_t width;
+        psd_size_t width;
 
         width = 0;
 
@@ -159,7 +159,7 @@ psd_result_t psd_read_depth(psd_header_t *const header,
                             psd_cursor_t *const cursor)
 {
         psd_byte_t *buffer;
-        psd_depth_t depth;
+        psd_size_t depth;
 
         depth = 0;
 
@@ -246,11 +246,11 @@ void psd_header_print(const psd_header_t header)
         printf("version: ");
         print_version(header.version);
 
-        printf("channels: %d\n", header.channels);
+        printf("channels: %ld\n", header.channels);
 
-        printf("size: %dx%d\n", header.width, header.height);
+        printf("size: %ldx%ld\n", header.width, header.height);
 
-        printf("depth: %d\n", header.depth);
+        printf("depth: %ld\n", header.depth);
 
         printf("color_mode: ");
         print_color_mode(header.color_mode);

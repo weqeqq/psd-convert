@@ -11,7 +11,7 @@
 static psd_result_t PSD_RESULT__;
 
 psd_result_t read_channel_size(size_t *const out_buffer,
-                               const psd_height_t height,
+                               const psd_size_t height,
                                psd_cursor_t *const cursor)
 {
         const size_t buffer_size = 2;
@@ -91,11 +91,9 @@ psd_result_t decompress_data(psd_byte_t *const inp_buffer,               //
 }
 
 // Read and decompress data.
-psd_result_t
-read_and_decompress_data(const psd_channels_t channels, const psd_width_t width,
-                         const psd_height_t height,
-                         const psd_compression_t *const compression,
-                         psd_cursor_t *const cursor)
+psd_result_t read_and_decompress_data(
+    const psd_size_t channels, const psd_size_t width, const psd_size_t height,
+    const psd_compression_t *const compression, psd_cursor_t *const cursor)
 {
         size_t decompressed_channel_size;
         size_t decompressed_buffer_size;

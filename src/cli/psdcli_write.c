@@ -72,9 +72,7 @@ psd_result_t set_IHDR(const psd_header_t *const header, //
                       png_struct *const png,            //
                       png_info *const info)             //
 {
-        psd_width_t width;
-        psd_height_t height;
-        psd_depth_t depth;
+        psd_size_t width, height, depth;
 
         width = header->width;
         height = header->height;

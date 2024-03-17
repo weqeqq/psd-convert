@@ -61,10 +61,10 @@ typedef enum psd_color_mode {
 
 typedef struct psd_header {
         psd_version_t version;
-        psd_channels_t channels;
-        psd_height_t height;
-        psd_width_t width;
-        psd_depth_t depth;
+        psd_size_t channels;
+        psd_size_t height;
+        psd_size_t width;
+        psd_size_t depth;
         psd_color_mode_t color_mode;
 } psd_header_t;
 

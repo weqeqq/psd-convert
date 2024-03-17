@@ -18,12 +18,8 @@ psd_result_t extract_image_p(const psd_header_t *const header,
 psd_result_t extract_image_pp(const psd_header_t *const header,
                               psd_cursor_t *const cursor)
 {
-        psd_byte_t *bufferp;
-        psd_byte_t **bufferpp;
-
-        psd_channels_t channels;
-        psd_width_t width;
-        psd_height_t height;
+        psd_byte_t *bufferp, **bufferpp;
+        psd_size_t channels, width, height;
 
         channels = header->channels;
         width = header->width;
