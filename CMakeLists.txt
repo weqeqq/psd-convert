@@ -8,15 +8,13 @@ set(CMAKE_C_FLAGS "-Wall" )
 project(psd-convert)
 
 set(INCLUDE ${CMAKE_SOURCE_DIR}/include)
-set(INCLUDE_CLI ${INCLUDE}/cli)
 
-set(SOURCE src/)
-set(SOURCE_CLI ${SOURCE}/cli)
-set(SOURCE_TEST test/)
+set(SOURCE ${CMAKE_SOURCE_DIR}/src/)
+set(SOURCE_TEST ${CMAKE_SOURCE_DIR}/test/)
 
 include_directories(${INCLUDE})
 
-set(LIB_SOURCES
+set(SOURCES
     ${SOURCE}/psd_header.c
     ${SOURCE}/psd_cursor.c
     ${SOURCE}/psd_section.c
@@ -24,7 +22,7 @@ set(LIB_SOURCES
     ${SOURCE}/psd_endian.c
     ${SOURCE}/psd_read.c)
 
-set(LIB_HEADERS
+set(HEADERS
     ${INCLUDE}/psd_cursor.h
     ${INCLUDE}/psd_result.h
     ${INCLUDE}/psd_types.h
@@ -42,10 +40,10 @@ set(SHARED_LIB ${PROJECT_NAME}-shared)
 set(STATIC_LIB ${PROJECT_NAME}-static)
 
 add_library(${STATIC_LIB} STATIC
-            ${LIB_SOURCES} ${LIB_HEADERS})
+            ${SOURCES} ${HEADERS})
 
 add_library(${SHARED_LIB} SHARED
-            ${LIB_SOURCES} ${LIB_HEADERS})
+            ${SOURCES} ${HEADERS})
 
 set_target_properties(${STATIC_LIB}
                         PROPERTIES
@@ -67,53 +65,6 @@ include(ExternalProject)
 find_package(Git REQUIRED)
 
 set(EXTERNAL_INSTALL_DIR ${CMAKE_CURRENT_BINARY_DIR}/external)
-
-set(LIBPNG libpng)
-set(LIBPNG_INSTALL_DIR ${EXTERNAL_INSTALL_DIR}/${LIBPNG})
-set(LIBPNG_LIB ${LIBPNG_INSTALL_DIR}/lib/libpng.so)
-set(LIBPNG_INCLUDE ${LIBPNG_INSTALL_DIR}/include)
-
-if(NOT EXISTS ${LIBPNG_INSTALL_DIR})
-
-    ExternalProject_Add(
-        ${LIBPNG}
-        PREFIX              ${LIBPNG}
-
-        GIT_REPOSITORY      https://github.com/pnggroup/libpng.git
-        GIT_TAG             v1.6.43
-
-        CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=${LIBPNG_INSTALL_DIR}
-        BUILD_COMMAND       ${CMAKE_COMMAND} --build <BINARY_DIR> --config Release)
-endif()
-
-set(CLI_SOURCES
-    ${SOURCE_CLI}/main.c
-    ${SOURCE_CLI}/psdcli_pathut.c
-    ${SOURCE_CLI}/psdcli_argument.c
-    ${SOURCE_CLI}/psdcli_extract.c
-    ${SOURCE_CLI}/psdcli_write.c)
-
-set(CLI_HEADERS
-    ${INCLUDE_CLI}/psdcli_pathut.h
-    ${INCLUDE_CLI}/psdcli_argument.h
-    ${INCLUDE_CLI}/psdcli_extract.h
-    ${INCLUDE_CLI}/psdcli_write.h)
-
-add_executable(${PROJECT_NAME})
-
-target_sources(${PROJECT_NAME} PRIVATE
-               ${CLI_SOURCES}
-               ${CLI_HEADERS})
-
-target_include_directories(${PROJECT_NAME} PRIVATE
-                           ${INCLUDE}
-                           ${INCLUDE_CLI}
-                           ${LIBPNG_INCLUDE})
-
-target_link_libraries(${PROJECT_NAME} PRIVATE
-                      ${STATIC_LIB}
-                      ${LIBPNG_LIB})
-
 
 enable_testing()
 
