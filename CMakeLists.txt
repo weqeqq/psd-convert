@@ -136,6 +136,7 @@ if(NOT EXISTS ${GTEST_INSTALL_DIR})
 endif()
 
 set(TEST_SOURCES
+    ${SOURCE_TEST}/endian.cpp
     ${SOURCE_TEST}/header.cpp
     ${SOURCE_TEST}/conversion.cpp
     ${SOURCE_TEST}/main.cpp)
